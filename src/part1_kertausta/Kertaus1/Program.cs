@@ -5,3 +5,8 @@
         Console.WriteLine("Hello, World!");
     }
 }
+
+
+// command + . (saa lampun "quick fixes")
+
+
