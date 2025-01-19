@@ -10,7 +10,7 @@
         "request": "launch",
         "preLaunchTask": "build",
         "program": "${workspaceFolder}/src/part1_kertausta/Kertaus1/bin/Debug/net9.0/bc_net24s_ryhma.dll",
-        "args": ["moi"],
+        "args": ["1"],
         "cwd": "${workspaceFolder}/src/part1_kertausta/Kertaus1/",
         "console": "internalConsole",
         "stopAtEntry": false,
