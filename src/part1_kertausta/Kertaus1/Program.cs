@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using System;
+using System;   
 
 internal class Program
 {
@@ -8,7 +8,7 @@ internal class Program
     private static void Main(string[] args)
     {
         // Try to parse first argument as number
-        int.TryParse(args.FirstOrDefault() ?? "0", out int num);
+        int.TryParse(args.FirstOrDefault("0"), out int num);
 
         Console.WriteLine($"starting with arg: {num}");
 
