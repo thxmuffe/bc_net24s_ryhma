@@ -5,13 +5,25 @@
     "version": "0.2.0",
     "configurations": [
     {
-        "name": ".NET Core Launch (console)",
+        "name": "Kertaus1",
         "type": "coreclr",
         "request": "launch",
         "preLaunchTask": "build",
         "program": "${workspaceFolder}/src/part1_kertausta/Kertaus1/bin/Debug/net9.0/bc_net24s_ryhma.dll",
         "args": ["1"],
         "cwd": "${workspaceFolder}/src/part1_kertausta/Kertaus1/",
+        "console": "internalConsole",
+        "stopAtEntry": false,
+        "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+        "name": "Kertaus2",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "${workspaceFolder}/src/part1_kertausta/Kertaus2/bin/Debug/net9.0/Kertaus2_logging.dll",
+        "args": [],
+        "cwd": "${workspaceFolder}/src/part1_kertausta/Kertaus2/",
         "console": "internalConsole",
         "stopAtEntry": false,
         "internalConsoleOptions": "openOnSessionStart"

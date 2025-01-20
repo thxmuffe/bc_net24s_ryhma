@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/part1_kertausta/Kertaus1/"
+                "${workspaceFolder}/src/"
             ],
             "problemMatcher": "$msCompile"
         }
