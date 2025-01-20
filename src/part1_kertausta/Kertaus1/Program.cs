@@ -3,7 +3,7 @@ using System;
 
 internal class Program
 {
-    private const int MaximumNumberOfCalls = 3000;
+    private const int MaximumNumberOfCalls = 500;
 
     private static void Main(string[] args)
     {
