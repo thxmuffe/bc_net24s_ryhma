@@ -24,3 +24,16 @@ Using Serilog
 - [https://mbarkt3sto.hashnode.dev/logging-to-a-file-using-serilog]
 
 - [https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration]
+
+
+Esimerkki appsettins.json (muista vaihtaa CopyAlways)
+{
+    "Serilog": {
+        "Using":  [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": "Debug",
+        "WriteTo": [
+          { "Name": "Console" },
+          { "Name": "File", "Args": { "path": "Logs/log.txt" } }
+        ]
+      }
+  }
