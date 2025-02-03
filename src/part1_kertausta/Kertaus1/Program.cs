@@ -5,6 +5,9 @@ internal class Program
 {
     private const int MaximumNumberOfCalls = 500;
 
+    // all dotnet programs starts from Main-named method
+    // command line arguments = args variable
+
     private static void Main(string[] args)
     {
         // Try to parse first argument as number
@@ -16,22 +19,24 @@ internal class Program
         
         if (num > MaximumNumberOfCalls) {
             Console.WriteLine($"Exceeded MaximumNumberOfCalls {MaximumNumberOfCalls}");
-            Environment.Exit(0);
+            return;
         }
 
-        using (var p = new Process()) {
-            // Get current program executable
-            p.StartInfo.FileName =  System.Reflection.Assembly.GetExecutingAssembly().Location;
+        var p = new Process();
+        
+        // Get current program executable
+        p.StartInfo.FileName =  System.Reflection.Assembly.GetExecutingAssembly().Location;
 
-            // Remove .dll from the end of the file path (macos stuff)
-            p.StartInfo.FileName = p.StartInfo.FileName.Substring(0, p.StartInfo.FileName.Length - 4);
+        // Remove .dll from the end of the file path (macos stuff)
+        p.StartInfo.FileName = p.StartInfo.FileName.Substring(0, p.StartInfo.FileName.Length - 4);
 
-            p.StartInfo.Arguments = num.ToString();
-            p.StartInfo.UseShellExecute = true; // needed in macos
-            p.Start();
 
-            p.WaitForExit(); // Important
-        }
+        p.StartInfo.Arguments = num.ToString();
+        p.StartInfo.UseShellExecute = true; // needed in macos
+        p.Start();
+
+        p.WaitForExit(); // Important
+        
         
         Console.WriteLine("Ending -- " + num.ToString());
     }
