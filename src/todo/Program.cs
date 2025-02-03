@@ -1,5 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Todo.Models;
+
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+// Käytä Serilog nugettia konfiguroidaksesi
+// Serilogin käyttämään appsettings.json-tiedostosta
+// luettua konfiguraatiota
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +38,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+logger.Warning("HEI!");
+
+Log.Information("Program started!");
+
+Log.Error("Example error");
 
 app.Run();
 
