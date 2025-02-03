@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kertaus2_logging", "part1_k
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bc_net24s_ryhma", "part1_kertausta\Kertaus1\bc_net24s_ryhma.csproj", "{63FB871D-AA49-41C0-8FD3-30EF945D70B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "todo", "todo\todo.csproj", "{4EC51AC7-91AC-4605-9A8A-8309AEB1C5A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{63FB871D-AA49-41C0-8FD3-30EF945D70B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63FB871D-AA49-41C0-8FD3-30EF945D70B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63FB871D-AA49-41C0-8FD3-30EF945D70B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EC51AC7-91AC-4605-9A8A-8309AEB1C5A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EC51AC7-91AC-4605-9A8A-8309AEB1C5A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EC51AC7-91AC-4605-9A8A-8309AEB1C5A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EC51AC7-91AC-4605-9A8A-8309AEB1C5A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -27,6 +27,18 @@
         "console": "internalConsole",
         "stopAtEntry": false,
         "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+        "name": "TodoApi",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "${workspaceFolder}/src/todo/bin/Debug/net9.0/todo.dll",
+        "args": [],
+        "cwd": "${workspaceFolder}/src/todo/",
+        "console": "internalConsole",
+        "stopAtEntry": false,
+        "internalConsoleOptions": "openOnSessionStart"
     }
     ]
 }
