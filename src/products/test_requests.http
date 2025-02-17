@@ -1,0 +1,11 @@
+### Get all products
+GET https://localhost:7234/api/products
+Accept: application/json
+
+### Create a new product
+POST https://localhost:7234/api/products
+Content-Type: application/json
+
+{
+  "name": "New Product"
+}

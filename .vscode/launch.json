@@ -39,6 +39,18 @@
         "console": "internalConsole",
         "stopAtEntry": false,
         "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+        "name": "ProductsApi",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "${workspaceFolder}/src/products/bin/Debug/net9.0/products.dll",
+        "args": [],
+        "cwd": "${workspaceFolder}/src/todo/",
+        "console": "internalConsole",
+        "stopAtEntry": false,
+        "internalConsoleOptions": "openOnSessionStart"
     }
     ]
 }
