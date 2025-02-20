@@ -5,9 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AspNetWebAPI.Data;
 using AspNetWebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 
 namespace AspNetWebAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase

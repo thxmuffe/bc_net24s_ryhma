@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth Callback</title>
+</head>
+
+<body>
+    <h2>OAuth Callback Page</h2>
+    <p id="status">Processing...</p>
+    <pre id="userInfo"></pre>
+    <p><strong>Access Token:</strong> <span id="accessToken"></span></p>
+    <p><strong>Id Token:</strong> <span id="idToken"></span></p>
+
+    <script>
+        const clientId = "490439995551-n1pm61l6p43f4uqq31rro48oimt7sj7h.apps.googleusercontent.com"; // Replace with your real Client ID
+        const clientSecret = ""; // Replace with your real Client Secret
+        const redirectUri = "http://localhost:5500/afterlogin.html"; // Must match Google settings
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        async function exchangeCodeForToken(code) {
+            const tokenUrl = "https://oauth2.googleapis.com/token";
+
+            const data = new URLSearchParams({
+                client_id: clientId,
+                client_secret: clientSecret,
+                code: code,
+                grant_type: "authorization_code",
+                redirect_uri: redirectUri
+            });
+
+            console.log("Authorization code was: " + code);
+
+            try {
+                const response = await fetch(tokenUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: data
+                });
+
+                const tokenInfo = await response.json();
+
+                if (tokenInfo.id_token) {
+                    document.getElementById("status").innerText = "Login Successful!";
+                    document.getElementById("idToken").innerText = tokenInfo.id_token;
+                    saveIdToken(tokenInfo.id_token);
+                } else {
+                    document.getElementById("status").innerText = "Error: Failed to get ID token.";
+                    document.getElementById("userInfo").innerText = JSON.stringify(tokenInfo, null, 2);
+                }
+
+            } catch (error) {
+                document.getElementById("status").innerText = "Error: " + error.message;
+            }
+        }
+
+        function saveAccessToken(token) {
+            const blob = new Blob([token], { type: "text/plain" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "access_token.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+
+        function saveIdToken(token) {
+            const blob = new Blob([token], { type: "text/plain" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "id_token.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        async function fetchUserInfo(accessToken) {
+            const userInfoUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
+            const response = await fetch(userInfoUrl, {
+                headers: { "Authorization": `Bearer ${accessToken}` }
+            });
+
+            const userInfo = await response.json();
+            document.getElementById("userInfo").innerText = JSON.stringify(userInfo, null, 2);
+        }
+
+        const code = getQueryParam("code");
+
+        if (code) {
+            exchangeCodeForToken(code);
+        } else {
+            document.getElementById("status").innerText = "Error: No authorization code found.";
+        }
+    </script>
+</body>
+
+</html>

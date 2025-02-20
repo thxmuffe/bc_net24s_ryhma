@@ -1,11 +1,25 @@
-### Get all products
+@access_token = 
+@id_token = 
+### Check if Token is Valid
+GET https://www.googleapis.com/oauth2/v2/tokeninfo
+Authorization: Bearer {{access_token}}
+
+### Get User Info
+GET https://www.googleapis.com/oauth2/v2/userinfo
+Authorization: Bearer {{access_token}}
+
+### Test a Secured API Endpoint
+### Get all products with OAuth Token
 GET https://localhost:7234/api/products
+Authorization: Bearer {{id_token}}
 Accept: application/json
 
 ### Create a new product
 POST https://localhost:7234/api/products
+Authorization: Bearer {{id_token}}
 Content-Type: application/json
 
 {
   "name": "New Product"
 }
+
