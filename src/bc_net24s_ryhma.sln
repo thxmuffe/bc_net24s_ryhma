@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "todo", "todo\todo.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "products", "products\products.csproj", "{92A6EB4A-89F9-4E13-A53F-B72FB5E75AAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MythicalCreatures", "MythicalCreatures\MythicalCreatures.csproj", "{AE200B75-8C96-4D19-AFEF-7508675445EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{92A6EB4A-89F9-4E13-A53F-B72FB5E75AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92A6EB4A-89F9-4E13-A53F-B72FB5E75AAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92A6EB4A-89F9-4E13-A53F-B72FB5E75AAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE200B75-8C96-4D19-AFEF-7508675445EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE200B75-8C96-4D19-AFEF-7508675445EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE200B75-8C96-4D19-AFEF-7508675445EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE200B75-8C96-4D19-AFEF-7508675445EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

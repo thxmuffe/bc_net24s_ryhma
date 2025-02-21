@@ -1,0 +1,72 @@
+[
+    {
+        "Id": 1,
+        "Name": "Draconis",
+        "Type": "Dragon",
+        "Power": "Fire Breath",
+        "Weakness": "Water"
+    },
+    {
+        "Id": 2,
+        "Name": "Fenrir",
+        "Type": "Wolf",
+        "Power": "Super Strength",
+        "Weakness": "Silver"
+    },
+    {
+        "Id": 3,
+        "Name": "Zephyrus",
+        "Type": "Wind Spirit",
+        "Power": "Hurricane Blast",
+        "Weakness": "Earth Magic"
+    },
+    {
+        "Id": 4,
+        "Name": "Kraken",
+        "Type": "Sea Monster",
+        "Power": "Tentacle Crush",
+        "Weakness": "Lightning"
+    },
+    {
+        "Id": 5,
+        "Name": "Gorgon",
+        "Type": "Serpent Hybrid",
+        "Power": "Petrifying Gaze",
+        "Weakness": "Mirror Reflection"
+    },
+    {
+        "Id": 6,
+        "Name": "Phoenix",
+        "Type": "Firebird",
+        "Power": "Rebirth",
+        "Weakness": "Dark Magic"
+    },
+    {
+        "Id": 7,
+        "Name": "Minotaur",
+        "Type": "Beastman",
+        "Power": "Labyrinth Mastery",
+        "Weakness": "Confusion Spells"
+    },
+    {
+        "Id": 8,
+        "Name": "Basilisk",
+        "Type": "Reptilian Horror",
+        "Power": "Venomous Bite",
+        "Weakness": "Rooster's Crow"
+    },
+    {
+        "Id": 9,
+        "Name": "Griffin",
+        "Type": "Majestic Beast",
+        "Power": "Aerial Assault",
+        "Weakness": "Net Traps"
+    },
+    {
+        "Id": 10,
+        "Name": "Chimera",
+        "Type": "Hybrid Beast",
+        "Power": "Multi-Element Attack",
+        "Weakness": "Disjointed Magic"
+    }
+]

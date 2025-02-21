@@ -51,6 +51,18 @@
         "console": "internalConsole",
         "stopAtEntry": false,
         "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+        "name": "Mythical Creatures",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "${workspaceFolder}/src/MythicalCreatures/bin/Debug/net9.0/MythicalCreatures.dll",
+        "args": [],
+        "cwd": "${workspaceFolder}/src/MythicalCreatures/",
+        "console": "internalConsole",
+        "stopAtEntry": false,
+        "internalConsoleOptions": "openOnSessionStart"
     }
     ]
 }

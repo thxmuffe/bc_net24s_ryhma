@@ -1,0 +1,36 @@
+@baseUrl = "localhost:5500"
+
+### Get all creatures
+GET {{baseUrl}}/creatures
+Accept: application/json
+
+### Get a specific creature by ID
+GET {{baseUrl}}/creatures/1
+Accept: application/json
+
+### Add a new creature
+POST {{baseUrl}}/creatures
+Content-Type: application/json
+
+{
+  "name": "Dragon",
+  "type": "Fire",
+  "strength": 95,
+  "agility": 80,
+  "intelligence": 85
+}
+
+### Update an existing creature
+PUT {{baseUrl}}/creatures/1
+Content-Type: application/json
+
+{
+  "name": "Elder Dragon",
+  "type": "Fire",
+  "strength": 100,
+  "agility": 85,
+  "intelligence": 90
+}
+
+### Delete a creature
+DELETE {{baseUrl}}/creatures/1
