@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myyttisten Olentojen Web API - Yhteenveto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Myyttisten Olentojen Web API - Yhteenveto</h1>
+
+<p>Tämä projekti on **verkkopalvelu**, joka tallentaa ja hallinnoi myyttisiä olentoja. Sen sijaan, että käytettäisiin tietokantaa, olennot tallennetaan **JSON-tiedostoon** (tekstitiedosto, joka sisältää tietoa jäsennellyssä muodossa). Projekti toimii **.NET 9 Web API**:n avulla, ja Visual Studio Code on asetettu niin, että se on helppo käynnistää, ajaa ja testata.</p>
+
+<h2>🛠 Vaiheet API:n rakentamiseen</h2>
+
+<h3>1️⃣ Luo projekti</h3>
+<pre><code>dotnet new webapi -n MythicalCreatures
+cd MythicalCreatures
+code .</code></pre>
+<p>Poista <strong>WeatherForecast.cs</strong>-tiedosto (sitä ei tarvita).</p>
+
+<h3>2️⃣ Helpota projektin ajamista</h3>
+<p>Aseta **VS Code** niin, että voit käynnistää API:n **F5-näppäimellä** tai oikotien avulla.</p>
+
+<h3>3️⃣ Määritä verkkopalvelu (<code>Program.cs</code>)</h3>
+<p>Tämä tiedosto **käynnistää palvelimen** ja varmistaa, että API voi käsitellä pyyntöjä.</p>
+
+<h3>4️⃣ Määrittele, mikä on olento (<code>Models/Creature.cs</code>)</h3>
+<ul>
+    <li><strong>Id</strong> (yksilöllinen numero)</li>
+    <li><strong>Name</strong> (olennon nimi)</li>
+    <li><strong>Type</strong> (tuli, vesi, ilma jne.)</li>
+    <li><strong>Strength, Agility, Intelligence</strong> (ominaisuudet)</li>
+</ul>
+
+<h3>5️⃣ Tallenna olennot tiedostoon (<code>Data/CreatureRepository.cs</code>)</h3>
+<p>Olennot tallennetaan **JSON-tiedostoon**. Koodi voi:</p>
+<ul>
+    <li>**Ladata** olennot tiedostosta</li>
+    <li>**Tallentaa** muutokset, kun olentoja lisätään, muokataan tai poistetaan</li>
+</ul>
+
+<h3>6️⃣ Luo ohjain (<code>Controllers/CreaturesController.cs</code>)</h3>
+<p>Käyttäjät voivat:</p>
+<ul>
+    <li>**Hakea kaikki olennot** (<code>GET /creatures</code>)</li>
+    <li>**Hakea yhden olennon** (<code>GET /creatures/1</code>)</li>
+    <li>**Lisätä uuden olennon** (<code>POST /creatures</code>)</li>
+    <li>**Päivittää olennon** (<code>PUT /creatures/1</code>)</li>
+    <li>**Poistaa olennon** (<code>DELETE /creatures/1</code>)</li>
+</ul>
+
+<h3>7️⃣ Käynnistä API</h3>
+<ul>
+    <li>Avaa **Run & Debug** -paneeli VS Code:ssa.</li>
+    <li>Paina **F5** tai käytä oikotietäsi.</li>
+</ul>
+
+<h3>8️⃣ Testaa API</h3>
+<p>**Luo testitiedosto** (<code>test.http</code>) ja käytä **VS Code REST Client** -laajennusta testaukseen.</p>
+
+<h2>🔍 Mitä tarkistaa, jos API ei toimi</h2>
+
+<h3>🔴 API ei käynnisty?</h3>
+<ul>
+    <li>Varmista, että <code>Program.cs</code> sisältää <code>AddControllers()</code>.</li>
+    <li>Katso, että **VS Code asetukset** rakentavat projektin ennen ajamista.</li>
+</ul>
+
+<h3>🔴 Olennot eivät tallennu?</h3>
+<ul>
+    <li>Onko <code>creatures.json</code> olemassa?</li>
+    <li>Onko <code>SaveCreatures()</code>-metodia kutsuttu?</li>
+</ul>
+
+<h3>🔴 API ei vastaa?</h3>
+<ul>
+    <li>Sisältyykö <code>MapControllers()</code> <code>Program.cs</code>-tiedostoon?</li>
+    <li>Kokeile käynnistää API uudelleen.</li>
+</ul>
+
+<h2>✅ Lopullinen tarkistuslista ennen ajamista</h2>
+<ul>
+    <li>🔹 **Rakenna projekti** (<code>dotnet build</code> tai **F5 VS Code:ssa**)</li>
+    <li>🔹 **Käynnistä API** (**F5** tai oikotie)</li>
+    <li>🔹 **Testaa API** käyttämällä <code>test.http</code>-tiedostoa tai Postmania</li>
+</ul>
+
+<h2>🎯 Mitä olet rakentanut</h2>
+<ul>
+    <li>✅ **Yksinkertainen verkkopalvelu**, joka **tallentaa olennot tiedostoon**</li>
+    <li>✅ **Järjestelmä, jolla voi lisätä, päivittää, poistaa ja hakea olentoja**</li>
+    <li>✅ **Helppo tapa ajaa ja testata API:ta VS Code:ssa**</li>
+</ul>
+
+<p>🚀 **Nyt voit kehittää sitä lisää, esimerkiksi lisäämällä tietokannan!** 🎉</p>
+
+</body>
+</html>
