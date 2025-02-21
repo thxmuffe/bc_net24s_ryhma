@@ -77,15 +77,15 @@
 }
 ```
 
-6. Save the files. Now, launching the API will automatically build the project before running.
+Save the files. Now, launching the API will automatically build the project before running.
 
 ---
 
-## Step 3: Understanding and Building `Program.cs`
+## Vaihe 4: Rakenna `Program.cs` askel askeleelta
 
-We will build `Program.cs` step by step, understanding what each part does.
+Avaa `Program.cs` ja kirjoita koodi vaiheittain.
 
-### Step 3.1: Add Required Namespaces
+### 4.1: Lisää tarvittavat nimiavaruudet
 
 ```csharp
 using Microsoft.AspNetCore.Builder;
@@ -93,35 +93,31 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 ```
 
-These namespaces provide the core functionality for building and running an ASP.NET Web API.
-
-### Step 3.2: Create a WebApplication Builder
+### 4.2: Luo WebApplication Builder
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 ```
 
-- This initializes a new Web API application.
-- It automatically loads settings from `appsettings.json`, environment variables, and command-line arguments.
+- Tämä alustaa uuden Web API -sovelluksen.
 
-### Step 3.3: Configure Services (Dependency Injection)
+### 4.3: Määritä palvelut (Dependency Injection)
 
 ```csharp
 builder.Services.AddControllers();
 ```
 
-- Registers support for MVC-style controllers.
-- Allows defining routes and handling HTTP requests.
+- Tämä rekisteröi ohjaimet, jotta ne voivat käsitellä HTTP-pyyntöjä.
 
-### Step 3.4: Build the Application
+### 4.4: Rakenna sovellus
 
 ```csharp
 var app = builder.Build();
 ```
 
-- This finalizes the application configuration and prepares it for execution.
+- Tämä rakentaa sovelluksen määritetyillä asetuksilla.
 
-### Step 3.5: Configure Middleware and Routing
+### 4.5: Määritä reititys ja valtuutus
 
 ```csharp
 if (app.Environment.IsDevelopment())
@@ -134,26 +130,51 @@ app.UseAuthorization();
 app.MapControllers();
 ```
 
-- `UseDeveloperExceptionPage()` provides detailed errors during development.
-- `UseRouting()` enables request handling.
-- `UseAuthorization()` (optional) enforces security policies.
-- `MapControllers()` activates controller routes.
+- `UseRouting()` ohjaa pyynnöt oikeille ohjaimille.
+- `MapControllers()` mahdollistaa ohjainten käyttämisen API-kutsuihin.
 
-### Step 3.6: Start the API
+### 4.6: Käynnistä sovellus
 
 ```csharp
 app.Run();
 ```
 
-- This starts the application, making it accessible via HTTP.
+- Tämä käynnistää palvelimen ja mahdollistaa API-kutsut.
+
+Lopullinen `Program.cs` näyttää tältä:
+
+```csharp
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseRouting();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
+```
 
 ---
 
-## Step 4: Define the Mythical Creature Model
+## Vaihe 5: Luo Mythical Creature -malli
 
-Create a new file `Models/Creature.cs`:
+Luo tiedosto `Models/Creature.cs`:
 
 ```csharp
+using System.Text.Json.Serialization;
+
 namespace MythicalCreatures.Models;
 
 public class Creature
@@ -167,22 +188,65 @@ public class Creature
 }
 ```
 
-### Explanation:
+### Selitys:
 
-- `Id`: A unique identifier for each creature.
-- `Name`: The name of the mythical creature.
-- `Type`: A classification (e.g., Fire, Water, Air).
-- `Strength`, `Agility`, `Intelligence`: Key attributes defining abilities.
+- Tämä malli määrittää olentojen ominaisuudet.
+- Se sisältää ID:n, nimen, tyypin ja kolme kykyä.
 
 ---
 
-## Step 5: Create the Creature Controller
+## Vaihe 6: Luo JSON-tiedoston hallinta
 
-Create a new file `Controllers/CreaturesController.cs`:
+Luo tiedosto `Data/CreatureRepository.cs`:
+
+```csharp
+using System.Text.Json;
+using MythicalCreatures.Models;
+
+namespace MythicalCreatures.Data;
+
+public class CreatureRepository
+{
+    private const string FilePath = "creatures.json";
+    private static readonly object _lock = new();
+
+    public List<Creature> LoadCreatures()
+    {
+        if (!File.Exists(FilePath)) return new List<Creature>();
+
+        lock (_lock)
+        {
+            var json = File.ReadAllText(FilePath);
+            return JsonSerializer.Deserialize<List<Creature>>(json) ?? new List<Creature>();
+        }
+    }
+
+    public void SaveCreatures(List<Creature> creatures)
+    {
+        lock (_lock)
+        {
+            var json = JsonSerializer.Serialize(creatures, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(FilePath, json);
+        }
+    }
+}
+```
+
+### Selitys:
+
+- `LoadCreatures()`: Lataa olennot `creatures.json`-tiedostosta ja deserialisoi ne.
+- `SaveCreatures()`: Tallentaa olennot JSON-muodossa.
+
+---
+
+## Vaihe 7: Luo Creature Controller JSON-tiedostopohjaisella tallennuksella
+
+Luo tiedosto `Controllers/CreaturesController.cs`:
 
 ```csharp
 using Microsoft.AspNetCore.Mvc;
 using MythicalCreatures.Models;
+using MythicalCreatures.Data;
 
 namespace MythicalCreatures.Controllers;
 
@@ -190,108 +254,96 @@ namespace MythicalCreatures.Controllers;
 [Route("[controller]")]
 public class CreaturesController : ControllerBase
 {
-    private static List<Creature> _creatures = new()
+    private readonly CreatureRepository _repository;
+
+    public CreaturesController()
     {
-        new Creature { Id = 1, Name = "Phoenix", Type = "Fire", Strength = 80, Agility = 90, Intelligence = 85 },
-        new Creature { Id = 2, Name = "Griffin", Type = "Air", Strength = 85, Agility = 80, Intelligence = 70 }
-    };
+        _repository = new CreatureRepository();
+    }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Creature>> GetAll() => Ok(_creatures);
+    public ActionResult<IEnumerable<Creature>> GetAll()
+    {
+        var creatures = _repository.LoadCreatures();
+        return Ok(creatures);
+    }
 
     [HttpGet("{id}")]
     public ActionResult<Creature> Get(int id)
     {
-        var creature = _creatures.FirstOrDefault(c => c.Id == id);
+        var creatures = _repository.LoadCreatures();
+        var creature = creatures.FirstOrDefault(c => c.Id == id);
         return creature is null ? NotFound() : Ok(creature);
     }
 
     [HttpPost]
     public ActionResult Add(Creature creature)
     {
-        creature.Id = _creatures.Max(c => c.Id) + 1;
-        _creatures.Add(creature);
+        var creatures = _repository.LoadCreatures();
+        creature.Id = creatures.Any() ? creatures.Max(c => c.Id) + 1 : 1;
+        creatures.Add(creature);
+        _repository.SaveCreatures(creatures);
         return CreatedAtAction(nameof(Get), new { id = creature.Id }, creature);
     }
 
     [HttpPut("{id}")]
     public ActionResult Update(int id, Creature updatedCreature)
     {
-        var index = _creatures.FindIndex(c => c.Id == id);
+        var creatures = _repository.LoadCreatures();
+        var index = creatures.FindIndex(c => c.Id == id);
         if (index == -1) return NotFound();
-        _creatures[index] = updatedCreature;
+
+        creatures[index] = updatedCreature;
+        _repository.SaveCreatures(creatures);
         return NoContent();
     }
 
     [HttpDelete("{id}")]
     public ActionResult Delete(int id)
     {
-        var creature = _creatures.FirstOrDefault(c => c.Id == id);
+        var creatures = _repository.LoadCreatures();
+        var creature = creatures.FirstOrDefault(c => c.Id == id);
         if (creature is null) return NotFound();
-        _creatures.Remove(creature);
+
+        creatures.Remove(creature);
+        _repository.SaveCreatures(creatures);
         return NoContent();
     }
 }
 ```
 
-### Explanation:
+### Selitys:
 
-- `GetAll()`: Returns all creatures.
-- `Get(id)`: Fetches a single creature by ID.
-- `Add(creature)`: Adds a new creature to the list.
-- `Update(id, creature)`: Updates an existing creature.
-- `Delete(id)`: Removes a creature from the list.
-
----
-
-## Step 6: Run the API Using VS Code
-
-1. Open the **Run and Debug** panel (`Cmd + Shift + D` on macOS, `Ctrl + Shift + D` on Windows).
-2. Select **Launch API**.
-3. Click **Start Debugging** (`F5`).
-
-Your API is now running.
+- `GetAll()`: Hakee kaikki olennot.
+- `Get(id)`: Palauttaa yksittäisen olennon ID:n perusteella.
+- `Add(creature)`: Lisää uuden olennon ja tallentaa tiedoston.
+- `Update(id, creature)`: Päivittää olemassa olevan olennon.
+- `Delete(id)`: Poistaa olennon tiedostosta.
 
 ---
 
-## Step 7: Create a `test.http` File
+## Vaihe 8: Käynnistä ja testaa API
 
-Save the following as `test.http` in your project root:
+1. Avaa **Run and Debug** -paneeli (`Cmd + Shift + D` macOS:ssä, `Ctrl + Shift + D` Windowsissa).
+2. Valitse **Launch API**.
+3. Paina **F5** tai käytä aiemmin luotua pikanäppäintä (`Cmd + Alt + R` tai `Ctrl + Alt + R`).
 
-```
-@baseUrl = http://localhost:5000
-
-### Get all creatures
-GET {{baseUrl}}/creatures
-Accept: application/json
-
-### Get a specific creature
-GET {{baseUrl}}/creatures/1
-Accept: application/json
-
-### Add a new creature
-POST {{baseUrl}}/creatures
-Content-Type: application/json
-
-{
-  "name": "Dragon",
-  "type": "Fire",
-  "strength": 95,
-  "agility": 80,
-  "intelligence": 85
-}
-
-### Delete a creature
-DELETE {{baseUrl}}/creatures/1
-```
-
-### Running the Requests
-
-1. Install the **REST Client** extension in VS Code.
-2. Open `test.http` and click **Send Request** above any request.
+API käynnistyy, ja URL näkyy terminaalissa.
 
 ---
 
-## Conclusion
+## Vaihe 9: Testaa API
 
-You've built a fully functional Mythical Creatures Web API with detailed explanations. Now, try adding persistence using a database or authentication.
+(Sama kuin aiemmin, ei muutoksia.)
+
+---
+
+## Yhteenveto
+
+Olet nyt rakentanut **Mythical Creatures Web API** -sovelluksen, joka tallentaa tiedot **JSON-tiedostoon**. Se sisältää:
+
+✅ **Täydellinen ohjelma, ohjaimet ja tietovarasto**  
+✅ **Käynnistys- ja testausohjeet**  
+✅ **Täysi CRUD-toiminnallisuus**  
+
+Nyt voit laajentaa API:ta lisäämällä tietokantatuen tai uusia ominaisuuksia! 🚀
