@@ -3,6 +3,12 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Run API and Frontend",
+            "configurations": ["Launch API", "Launch Frontend"]
+        }
+    ],
     "configurations": [
     {
         "name": "Kertaus1",
@@ -41,16 +47,18 @@
         "internalConsoleOptions": "openOnSessionStart"
     },
     {
-        "name": "ProductsApi",
-        "type": "coreclr",
+        "name": "Launch API",
+        "type": "dotnet",
         "request": "launch",
-        "preLaunchTask": "build",
-        "program": "${workspaceFolder}/src/products/bin/Debug/net9.0/products.dll",
-        "args": [],
-        "cwd": "${workspaceFolder}/src/todo/",
-        "console": "internalConsole",
-        "stopAtEntry": false,
-        "internalConsoleOptions": "openOnSessionStart"
+        "projectPath": "${workspaceFolder}/src/products/products.csproj"
+    },
+    {
+        "name": "Launch Frontend",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}/src/products",
+        "runtimeExecutable": "python3",
+        "runtimeArgs": ["-m", "http.server", "5200"]
     },
     {
         "name": "Mythical Creatures",
