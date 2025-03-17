@@ -17,6 +17,8 @@
    code .
    ```
 
+Huom! Tarvitset myös creatures.json-nimisen tiedoston, jota tämä ohjelma käyttää tietokantana. Lisää lopussa...
+
 2. Delete `WeatherForecast.cs` and its references in `Program.cs`.
 
 ---
@@ -126,10 +128,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-app.UseAuthorization();
 app.MapControllers();
 ```
 
+-	app.Environment.IsDevelopment() → Palauttaa true, jos sovellus toimii Development-ympäristössä.
+-	app.UseDeveloperExceptionPage(); → Näyttää yksityiskohtaisen virhesivun, jossa on virheen tarkka kuvaus, pinorakenne (stack trace) ja muita hyödyllisiä tietoja.
+Miksi tätä käytetään?
+	•	Kehitysvaiheessa: Näet tarkat virheilmoitukset, mikä auttaa debuggaamisessa.
+	•	Tuotannossa: Et halua tätä! Sen sijaan käytetään UseExceptionHandler(), joka näyttää käyttäjälle ystävällisemmän virhesivun.
+ 
 - `UseRouting()` ohjaa pyynnöt oikeille ohjaimille.
 - `MapControllers()` mahdollistaa ohjainten käyttämisen API-kutsuihin.
 
@@ -160,7 +167,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
@@ -335,8 +342,98 @@ API käynnistyy, ja URL näkyy terminaalissa.
 ## Vaihe 9: Testaa API
 
 (Sama kuin aiemmin, ei muutoksia.)
+Kannattaa aloittaa aina GET:stä, yksinkertaisimmillaan laitat selaimeen:
+```url
+http://localhost:5000/creatures
+```
+
+ja indeksillä:
+```url
+http://localhost:5000/creatures/1
+```
+
+Mieti myös: Kuinka voisit testata api:n kokonaan. Mikä helpottaisi testausta? ✅
 
 ---
+
+
+Esimerkkitiedosto creatures.json. Käytä tätä tai tee oma.
+
+```json
+[
+    {
+        "Id": 1,
+        "Name": "Draconis",
+        "Type": "Dragon",
+        "Power": "Fire Breath",
+        "Weakness": "Water"
+    },
+    {
+        "Id": 2,
+        "Name": "Fenrir",
+        "Type": "Wolf",
+        "Power": "Super Strength",
+        "Weakness": "Silver"
+    },
+    {
+        "Id": 3,
+        "Name": "Zephyrus",
+        "Type": "Wind Spirit",
+        "Power": "Hurricane Blast",
+        "Weakness": "Earth Magic"
+    },
+    {
+        "Id": 4,
+        "Name": "Kraken",
+        "Type": "Sea Monster",
+        "Power": "Tentacle Crush",
+        "Weakness": "Lightning"
+    },
+    {
+        "Id": 5,
+        "Name": "Gorgon",
+        "Type": "Serpent Hybrid",
+        "Power": "Petrifying Gaze",
+        "Weakness": "Mirror Reflection"
+    },
+    {
+        "Id": 6,
+        "Name": "Phoenix",
+        "Type": "Firebird",
+        "Power": "Rebirth",
+        "Weakness": "Dark Magic"
+    },
+    {
+        "Id": 7,
+        "Name": "Minotaur",
+        "Type": "Beastman",
+        "Power": "Labyrinth Mastery",
+        "Weakness": "Confusion Spells"
+    },
+    {
+        "Id": 8,
+        "Name": "Basilisk",
+        "Type": "Reptilian Horror",
+        "Power": "Venomous Bite",
+        "Weakness": "Rooster's Crow"
+    },
+    {
+        "Id": 9,
+        "Name": "Griffin",
+        "Type": "Majestic Beast",
+        "Power": "Aerial Assault",
+        "Weakness": "Net Traps"
+    },
+    {
+        "Id": 10,
+        "Name": "Chimera",
+        "Type": "Hybrid Beast",
+        "Power": "Multi-Element Attack",
+        "Weakness": "Disjointed Magic"
+    }
+]
+```
+
 
 ## Yhteenveto
 
@@ -347,3 +444,4 @@ Olet nyt rakentanut **Mythical Creatures Web API** -sovelluksen, joka tallentaa 
 ✅ **Täysi CRUD-toiminnallisuus**  
 
 Nyt voit laajentaa API:ta lisäämällä tietokantatuen tai uusia ominaisuuksia! 🚀
+
