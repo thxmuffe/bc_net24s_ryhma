@@ -58,7 +58,7 @@
         "request": "launch",
         "cwd": "${workspaceFolder}/src/products",
         "runtimeExecutable": "python3",
-        "runtimeArgs": ["-m", "http.server", "5200"]
+        "runtimeArgs": ["-m", "http.server", "5500"]
     },
     {
         "name": "Mythical Creatures",

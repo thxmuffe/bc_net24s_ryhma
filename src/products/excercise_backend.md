@@ -164,9 +164,94 @@ Koska projektissa on **launch.json**, API voidaan käynnistää helposti:
 - **Mac**: `Cmd + Shift + F5`
 - (Katso tai muokkaa pikanäppäimiä: [VS Code Keyboard Shortcuts](https://code.visualstudio.com/docs/getstarted/keybindings))
 
+__
+
+
+# Muista tehdä pieniä hyvä kommitteja
+
+Testaa web api:
+- dotnet build
+- käynnistä ohjelma. Käynnistyykö ilman virheitä?
+
 ---
 
-## 7. (Valinnainen) Julkaise API Azureen
+## 7. Autentikoinnin lisääminen `Program.cs`-tiedostoon
+Tämä Web API käyttää **Google OAuthia** käyttäjien tunnistamiseen. Lisää seuraava koodi `Program.cs`-tiedostoon:
+
+```csharp
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://accounts.google.com";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true, // Varmistaa, että token on Googlen myöntämä
+            ValidIssuer = "https://accounts.google.com",
+            ValidateAudience = true, // Varmistaa, että token on tarkoitettu tälle API:lle
+            ValidAudience = googleClientId, // Aseta Google Client ID tähän
+            ValidateLifetime = true // Varmistaa, että token ei ole vanhentunut
+        };
+    });
+
+app.UseAuthentication(); // Käynnistää autentikointijärjestelmän
+app.UseAuthorization(); // Tarkistaa, onko käyttäjällä oikeudet
+```
+
+Tämä varmistaa, että käyttäjien on kirjauduttava sisään Google-tilillään ennen kuin he voivat käyttää API:a.
+
+
+Miten ASP.NET Core:n builder.Services.AddAuthentication() toimii?
+
+🔹 Mitä se tekee?
+	•	Rekisteröi autentikointipalvelut sovelluksen käyttöön.
+	•	Määrittää säännöt, kuten mistä JWT-tokenit tarkistetaan.
+
+🔹 Milloin se suoritetaan?
+	•	Vain kerran sovelluksen käynnistyessä (Program.cs).
+
+🔹 Milloin autentikointi tapahtuu?
+	•	Jokaisella pyynnöllä, kun käyttäjä yrittää käyttää suojattua endpointtia ([Authorize]).
+	•	UseAuthentication() tarkistaa tokenin ja asettaa käyttäjän HttpContext.User:iin.
+
+🔹 Tärkeää ymmärtää:
+✅ AddAuthentication() ei tarkista mitään – se vain asettaa säännöt.
+✅ Jokaisella pyynnöllä katsotaan, onko token kunnossa.
+✅ Jos [Authorize] on käytössä, ilman kelvollista tokenia tulee 401 Unauthorized.
+
+---
+
+## 8. Suojattujen endpointtien käyttö `[Authorize]`-määritteellä
+Tämä API tukee autentikointia, ja `ProductsController`-luokan kaikki metodit vaativat kirjautumisen:
+
+```csharp
+[Authorize] // Varmistaa, että vain kirjautuneet käyttäjät pääsevät käsiksi
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController : ControllerBase
+```
+
+## Autentikoinnin testaaminen
+1. **Hanki Google OAuth -token** kirjautumalla sisään Google-tililläsi.  
+2. **Lähetä API-pyyntö käyttäen tokenia:**
+
+   ```http
+   GET /api/products
+   Authorization: Bearer YOUR_ACCESS_TOKEN
+   ```
+
+3. **Jos pyyntö ei sisällä validia tokenia**, API palauttaa `401 Unauthorized` -virheen.
+
+## Roolipohjainen käyttöoikeus (valinnainen)
+Jos haluat sallia pääsyn vain tietyille käyttäjäryhmille, voit käyttää roolipohjaista autentikointia:
+- Määritä roolit **identiteettipalvelussa** (esim. Google Workspace).  
+- Käytä `[Authorize(Roles = "Admin")]`-määritettä metodeissa, jotka ovat vain tiettyjen käyttäjien käytettävissä.
+
+Tämä varmistaa, että vain **sallitut käyttäjät** voivat käyttää tiettyjä ominaisuuksia.
+
+
+---
+
+## (BONUS) Julkaise API Azureen
 
 Voit julkaista API:n **Azure App Serviceen**, jos haluat sen toimivan verkossa.
 

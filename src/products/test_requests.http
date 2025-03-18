@@ -10,12 +10,12 @@ Authorization: Bearer {{access_token}}
 
 ### Test a Secured API Endpoint
 ### Get all products with OAuth Token
-GET https://localhost:7234/api/products
+GET https://localhost:5001/api/products
 Authorization: Bearer {{id_token}}
 Accept: application/json
 
 ### Create a new product
-POST https://localhost:7234/api/products
+POST https://localhost:5001/api/products
 Authorization: Bearer {{id_token}}
 Content-Type: application/json
 

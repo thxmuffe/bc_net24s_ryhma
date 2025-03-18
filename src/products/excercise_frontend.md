@@ -2,6 +2,8 @@
 
 Tässä ohjeessa opit toteuttamaan **frontend-autentikoinnin** käyttäen **Google OAuth** -kirjautumista. Saatu **ID Token** voidaan käyttää **Products API** -rajapinnan kutsuihin.
 
+Huom! Sinun ei tarvitse tehdä itse Google:n palvelussa uutta authorize clienttiä, vaan voit käyttää opettajan luomaa ClientID:tä (Secret löytyy ItsLearning tehtävänannossa)
+
 ## 1. Luo Frontend-tiedostot
 
 ### 1.1 `index.html` (Kirjautumissivu)
