@@ -179,6 +179,31 @@ curl -X GET https://localhost:5001/api/products \
      -H "Authorization: Bearer YOUR_ID_TOKEN"
 ```
 
+Voit myös käyttää muuttujia .http RestClient tiedostoissa esim. näin:
+
+```http
+
+@id_token = .....keUQfQR49O0SQ....
+
+### Check if Token is Valid
+### Test a Secured API Endpoint
+### Get all products with OAuth Token
+GET https://localhost:5001/api/products
+Authorization: Bearer {{id_token}}
+Accept: application/json
+
+### Create a new product
+POST https://localhost:5001/api/products
+Authorization: Bearer {{id_token}}
+Content-Type: application/json
+
+{
+  "name": "fix id token save... why doesnt it work"
+}
+
+```
+
+
 ---
 
 ## 4. Miten autentikointiprosessi toimii?
