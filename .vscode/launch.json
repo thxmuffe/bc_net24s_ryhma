@@ -5,72 +5,87 @@
     "version": "0.2.0",
     "compounds": [
         {
-            "name": "Run API and Frontend",
-            "configurations": ["Launch API", "Launch Frontend"]
+            "name": "Products Login",
+            "configurations": [
+                "Launch API",
+                "Launch Frontend"
+            ]
         }
     ],
     "configurations": [
-    {
-        "name": "Kertaus1",
-        "type": "coreclr",
-        "request": "launch",
-        "preLaunchTask": "build",
-        "program": "${workspaceFolder}/src/part1_kertausta/Kertaus1/bin/Debug/net9.0/bc_net24s_ryhma.dll",
-        "args": ["1"],
-        "cwd": "${workspaceFolder}/src/part1_kertausta/Kertaus1/",
-        "console": "internalConsole",
-        "stopAtEntry": false,
-        "internalConsoleOptions": "openOnSessionStart"
-    },
-    {
-        "name": "Kertaus2",
-        "type": "coreclr",
-        "request": "launch",
-        "preLaunchTask": "build",
-        "program": "${workspaceFolder}/src/part1_kertausta/Kertaus2/bin/Debug/net9.0/Kertaus2_logging.dll",
-        "args": [],
-        "cwd": "${workspaceFolder}/src/part1_kertausta/Kertaus2/",
-        "console": "internalConsole",
-        "stopAtEntry": false,
-        "internalConsoleOptions": "openOnSessionStart"
-    },
-    {
-        "name": "TodoApi",
-        "type": "coreclr",
-        "request": "launch",
-        "preLaunchTask": "build",
-        "program": "${workspaceFolder}/src/todo/bin/Debug/net9.0/todo.dll",
-        "args": [],
-        "cwd": "${workspaceFolder}/src/todo/",
-        "console": "internalConsole",
-        "stopAtEntry": false,
-        "internalConsoleOptions": "openOnSessionStart"
-    },
-    {
-        "name": "Launch API",
-        "type": "dotnet",
-        "request": "launch",
-        "projectPath": "${workspaceFolder}/src/products/products.csproj"
-    },
-    {
-        "name": "Launch Frontend",
-        "type": "node",
-        "request": "launch",
-        "cwd": "${workspaceFolder}/src/products",
-        "runtimeExecutable": "python3",
-        "runtimeArgs": ["-m", "http.server", "5500"]
-    },
-    {
-        "name": "Mythical Creatures",
-        "type": "coreclr",
-        "request": "launch",
-        "preLaunchTask": "build",
-        "program": "${workspaceFolder}/src/MythicalCreatures/bin/Debug/net9.0/MythicalCreatures.dll",
-        "args": [],
-        "cwd": "${workspaceFolder}/src/MythicalCreatures/",
-        "console": "internalConsole",
-        "stopAtEntry": false,
-        "internalConsoleOptions": "openOnSessionStart"
-    }
+        {
+            "name": "Kertaus1",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/part1_kertausta/Kertaus1/bin/Debug/net9.0/bc_net24s_ryhma.dll",
+            "args": [
+                "1"
+            ],
+            "cwd": "${workspaceFolder}/src/part1_kertausta/Kertaus1/",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": "Kertaus2",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/part1_kertausta/Kertaus2/bin/Debug/net9.0/Kertaus2_logging.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/part1_kertausta/Kertaus2/",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": "TodoApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/todo/bin/Debug/net9.0/todo.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/todo/",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": "TODO EF",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/todo/todo.csproj"
+        },
+        {
+            "name": "Launch API",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/products/products.csproj"
+        },
+        {
+            "name": "Launch Frontend",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/products",
+            "runtimeExecutable": "python3",
+            "runtimeArgs": [
+                "-m",
+                "http.server",
+                "5500"
+            ]
+        },
+        {
+            "name": "Mythical Creatures",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/MythicalCreatures/bin/Debug/net9.0/MythicalCreatures.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/MythicalCreatures/",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        }
     ]
 }
