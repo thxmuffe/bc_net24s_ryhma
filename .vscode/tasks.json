@@ -7,7 +7,33 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/"
+                "${workspaceFolder}/src/bc_net24s_ryhma.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/src/bc_net24s_ryhma.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/src/bc_net24s_ryhma.sln"
             ],
             "problemMatcher": "$msCompile"
         }

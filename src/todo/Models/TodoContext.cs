@@ -10,4 +10,10 @@ public class TodoContext : DbContext
     }
 
     public DbSet<TodoItem> TodoItems { get; set; } = null!;
+
+    // This will create necessary tables if missing
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<TodoItem>().ToTable("TodoItems");
+    }
 }

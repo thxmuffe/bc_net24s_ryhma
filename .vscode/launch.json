@@ -10,6 +10,13 @@
                 "Launch API",
                 "Launch Frontend"
             ]
+        },
+        {
+            "name": "TODO EF + Open Browser",
+            "configurations": [
+                "TODO EF",
+                "Open TodoItemsBrowser"
+            ]
         }
     ],
     "configurations": [
@@ -56,6 +63,14 @@
             "type": "dotnet",
             "request": "launch",
             "projectPath": "${workspaceFolder}/src/todo/todo.csproj"
+        },
+        {
+            "name": "Open TodoItemsBrowser",
+            "request": "launch",
+            "url": "https://localhost:5555/api/todoitems",
+            "presentation": {
+              "hidden": true
+            }
         },
         {
             "name": "Launch API",
